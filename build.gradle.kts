@@ -3,6 +3,9 @@ plugins {
 	kotlin("plugin.spring") version "1.9.25"
 	id("org.springframework.boot") version "3.5.3"
 	id("io.spring.dependency-management") version "1.1.7"
+	application
+	jacoco
+	id("info.solidsoft.pitest") version "1.15.0"
 }
 
 group = "com.example"
@@ -36,6 +39,29 @@ kotlin {
 	}
 }
 
+pitest {
+	junit5PluginVersion.set("1.0.0")
+	targetClasses.set(listOf("Methodo_test.domain.model.domain.*"))
+	targetTests.set(listOf("Methodo_test.domain.model.domain.*"))
+	threads.set(2)
+	outputFormats.set(listOf("HTML"))
+}
+
+jacoco {
+	toolVersion = "0.8.11"
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.required.set(true)
+		html.required.set(true)
+	}
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)
 }
+
+
