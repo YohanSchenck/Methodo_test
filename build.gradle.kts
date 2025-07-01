@@ -41,8 +41,8 @@ kotlin {
 
 pitest {
 	junit5PluginVersion.set("1.0.0")
-	targetClasses.set(listOf("Methodo_test.domain.model.domain.*"))
-	targetTests.set(listOf("Methodo_test.domain.model.domain.*"))
+	targetClasses.set(listOf("Methodo_test.domain.model.*"))
+	targetTests.set(listOf("Methodo_test.usecase.*"))
 	threads.set(2)
 	outputFormats.set(listOf("HTML"))
 }
