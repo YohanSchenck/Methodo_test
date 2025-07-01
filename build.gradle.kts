@@ -40,7 +40,7 @@ kotlin {
 }
 
 pitest {
-	junit5PluginVersion.set("1.0.0")
+	junit5PluginVersion.set("1.2.1")
 	targetClasses.set(listOf("Methodo_test.domain.model.*"))
 	targetTests.set(listOf("Methodo_test.usecase.*"))
 	threads.set(2)
