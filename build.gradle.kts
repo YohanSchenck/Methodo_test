@@ -33,6 +33,14 @@ dependencies {
 	testImplementation("io.kotest:kotest-property:5.9.1")
 	testImplementation("io.mockk:mockk:1.13.7")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.liquibase:liquibase-core")
+	runtimeOnly("org.postgresql:postgresql")
+	testImplementation("org.testcontainers:junit-jupiter:1.19.1")
+	testImplementation("org.testcontainers:postgresql:1.19.1")
+	testImplementation("org.testcontainers:jdbc-test:1.12.0")
+	testImplementation("org.testcontainers:testcontainers:1.19.1")
+	testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
 }
 
 kotlin {
