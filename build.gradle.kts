@@ -61,12 +61,29 @@ jacoco {
 	toolVersion = "0.8.11"
 }
 
+//tasks.jacocoTestReport {
+//	dependsOn(tasks.test)
+//	reports {
+//		xml.required.set(true)
+//		html.required.set(true)
+//	}
+//}
+
 tasks.jacocoTestReport {
-	dependsOn(tasks.test)
+	dependsOn(tasks.test, tasks.named("testIntegration")) // important
+
 	reports {
 		xml.required.set(true)
 		html.required.set(true)
 	}
+
+	// Ajouter les résultats des tests d'intégration
+	executionData.setFrom(
+		fileTree(buildDir).include(
+			"/jacoco/test.exec",
+			"/jacoco/testIntegration.exec"
+		)
+	)
 }
 
 tasks.withType<Test> {

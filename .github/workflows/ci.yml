@@ -35,6 +35,9 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test
 
+      - name: Run Integration Tests
+        run: ./gradlew testIntegration
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
