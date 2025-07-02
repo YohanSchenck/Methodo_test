@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -31,6 +32,7 @@ dependencies {
 	testImplementation("io.kotest:kotest-assertions-core:5.9.1")
 	testImplementation("io.kotest:kotest-property:5.9.1")
 	testImplementation("io.mockk:mockk:1.13.7")
+	testImplementation("com.ninja-squad:springmockk:4.0.0")
 }
 
 kotlin {
@@ -64,4 +66,23 @@ tasks.withType<Test> {
 	finalizedBy(tasks.jacocoTestReport)
 }
 
+sourceSets {
+	create("testIntegration") {
+		java.srcDir("src/testIntegration/kotlin")
+		resources.srcDir("src/testIntegration/resources")
+		compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+		runtimeClasspath += output + compileClasspath
+	}
+}
 
+tasks.register<Test>("testIntegration") {
+	description = "Run integration tests"
+	group = "verification"
+	testClassesDirs = sourceSets["testIntegration"].output.classesDirs
+	classpath = sourceSets["testIntegration"].runtimeClasspath
+	useJUnitPlatform()
+}
+
+tasks.named("check") {
+	dependsOn("testIntegration")
+}
