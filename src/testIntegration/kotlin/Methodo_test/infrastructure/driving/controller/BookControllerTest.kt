@@ -14,19 +14,16 @@ import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.get
 import Methodo_test.domain.model.Book
 import Methodo_test.domain.usecase.BookService
+import io.kotest.core.spec.style.FunSpec
 import Methodo_test.infrastructure.driving.controller.BookController
 
 @WebMvcTest(BookController::class)
-class BookControllerTest {
+class BookControllerTest (
+    @MockkBean private val bookService: BookService,
+    private val mockMvc: MockMvc
+) : FunSpec({
 
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @MockkBean
-    lateinit var bookService: BookService
-
-    @Test
-    fun `should return book list`() {
+    test("should return book list") {
         every { bookService.listBooks() } returns listOf(
             Book("Title A", "Author A"),
             Book("Title B", "Author B")
@@ -41,8 +38,7 @@ class BookControllerTest {
         verify { bookService.listBooks() }
     }
 
-    @Test
-    fun `should create a book`() {
+    test("should create a book") {
         every { bookService.addBook(any()) } returns Unit
 
         mockMvc.post("/books") {
@@ -55,8 +51,7 @@ class BookControllerTest {
         verify { bookService.addBook(Book("Test", "Me")) }
     }
 
-    @Test
-    fun `should reserve a book successfully`() {
+    test("should reserve a book successfully") {
         every { bookService.reserveBook("1984") } returns Unit
 
         mockMvc.post("/books/1984/reserve")
@@ -67,8 +62,7 @@ class BookControllerTest {
         verify { bookService.reserveBook("1984") }
     }
 
-    @Test
-    fun `should return error when reserving an already reserved book`() {
+    test("should return error when reserving an already reserved book") {
         every { bookService.reserveBook("1984") } throws IllegalStateException("Book is already reserved")
 
         mockMvc.post("/books/1984/reserve")
@@ -80,5 +74,4 @@ class BookControllerTest {
         verify { bookService.reserveBook("1984") }
     }
 
-
-}
+})

@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/booksdb
-    username: PostgreSQL 17
-    password:
+    username: postgres
+    password: password
     driver-class-name: org.postgresql.Driver
 
   liquibase:
