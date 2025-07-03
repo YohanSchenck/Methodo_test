@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.get
 import Methodo_test.domain.model.Book
 import Methodo_test.domain.usecase.BookService
-import Methodo_test.infrastructure.driving.controller.dto.BookController
+import Methodo_test.infrastructure.driving.controller.BookController
 
 @WebMvcTest(BookController::class)
 class BookControllerTest {

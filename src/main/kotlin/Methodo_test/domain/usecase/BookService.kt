@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class BookService(private val repository: BookRepository) {
 
+
     fun addBook(book: Book) {
         repository.save(book)
     }

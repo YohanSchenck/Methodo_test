@@ -1,4 +1,4 @@
-package Methodo_test.infrastructure.driving.controller.dto
+package Methodo_test.infrastructure.driving.controller
 
 import org.springframework.web.bind.annotation.*
 import Methodo_test.domain.model.Book
