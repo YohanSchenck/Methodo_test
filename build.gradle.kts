@@ -41,6 +41,7 @@ dependencies {
 	testImplementation("org.testcontainers:jdbc-test:1.12.0")
 	testImplementation("org.testcontainers:testcontainers:1.19.1")
 	testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
+	testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
 }
 
 kotlin {

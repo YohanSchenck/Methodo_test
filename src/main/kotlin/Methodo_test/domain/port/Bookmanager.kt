@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 interface BookRepository {
     fun save(book: Book)
     fun findAll(): List<Book>
+    fun reserve(title: String)
 }

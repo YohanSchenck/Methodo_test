@@ -54,4 +54,31 @@ class BookControllerTest {
 
         verify { bookService.addBook(Book("Test", "Me")) }
     }
+
+    @Test
+    fun `should reserve a book successfully`() {
+        every { bookService.reserveBook("1984") } returns Unit
+
+        mockMvc.post("/books/1984/reserve")
+            .andExpect {
+                status { isOk() }
+            }
+
+        verify { bookService.reserveBook("1984") }
+    }
+
+    @Test
+    fun `should return error when reserving an already reserved book`() {
+        every { bookService.reserveBook("1984") } throws IllegalStateException("Book is already reserved")
+
+        mockMvc.post("/books/1984/reserve")
+            .andExpect {
+                status { is5xxServerError() }
+                jsonPath("$.message") { value("Book is already reserved") }
+            }
+
+        verify { bookService.reserveBook("1984") }
+    }
+
+
 }

@@ -22,3 +22,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: reserved
+                  type: boolean
+                  defaultValueBoolean: false
